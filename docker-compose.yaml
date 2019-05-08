@@ -6,7 +6,6 @@ services:
     ports:
       - "5000:5000"
     volumes:
-     #- //c/Users/z08273/mlflow:/mlflow
      - /c/Users/${USERNAME}/mlflow:/mlflow
      # hack to 
      # force docker to sync up the artifact folder back 
