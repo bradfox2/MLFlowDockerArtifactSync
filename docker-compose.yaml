@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  mlflow:
+    image: bradfox2/mlflow:latest
+    container_name: mlflow
+    ports:
+      - "5000:5000"
+    volumes:
+     #- //c/Users/z08273/mlflow:/mlflow
+     - /c/Users/${USERNAME}/mlflow:/mlflow
+     # fucking hack to 
+     # force docker to sync up the artifact folder back 
+     # into the container after the local run of mlflow
+     # puts them onto the local drive.
+     - /c/Users/${USERNAME}/mlflow/artifacts:/Users/${USERNAME}/mlflow/artifacts
+    command:
+    #do not change, server parameter is passed back to local user to specify storage location of the artifacts
+    #https://stackoverflow.com/questions/52331254/how-to-store-artifacts-on-a-server-running-mlflow
+      mlflow server --file-store /mlflow --host 0.0.0.0 --default-artifact-root /Users/${USERNAME}/mlflow/artifacts
